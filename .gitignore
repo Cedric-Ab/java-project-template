@@ -31,3 +31,13 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+# Ignore everything in .idea
+.idea/*
+
+# Keep shared project settings
+!.idea/externalDependencies.xml
+!.idea/checkstyle-idea-unresolved.xml
+
+# Ignore save-files
+saves/*
