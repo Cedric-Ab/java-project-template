@@ -57,11 +57,7 @@ pmd {
 
 tasks.test {
     useJUnitPlatform()
-    doFirst {
-        jvmArgs(
-            "-javaagent:${mockitoAgent.singleFile.absolutePath}"
-        )
-    }
+    jvmArgs("-javaagent:${mockitoAgent.singleFile.absolutePath}")
 }
 
 tasks.named<Test>("test")

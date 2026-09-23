@@ -1,0 +1,20 @@
+name: Documentation
+description: Request changes or additions to the documentation
+title: "[DOCUMENTATION] "
+labels: [ "documentation" ]
+body:
+  - type: input
+    id: part
+    attributes:
+      label: Related Parts
+      description: Which part of the documentation does this belong to?
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should be done?
+    validations:
+      required: true

@@ -1,0 +1,11 @@
+name: Task
+description: Task that doesn't fit into other issue types
+title: "[TASK] "
+labels: [ ]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
