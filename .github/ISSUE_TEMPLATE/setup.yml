@@ -1,0 +1,11 @@
+name: Setup-Task
+description: Change in the project setup
+title: "[SETUP] "
+labels: [ "setup" ]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
