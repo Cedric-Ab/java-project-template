@@ -9,11 +9,24 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+val junitVersion = "5.14.+"
+val mockitoVersion = "5.23.+"
+// Official fix required for loading of mockito agent; see (1) below
+// https://javadoc.io/static/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+val mockitoAgent = configurations.create("mockitoAgent")
 
+dependencies {
+    implementation("org.jetbrains:annotations:26.0.2")
+    // JUnit dependencies
+    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Mockito dependencies
+    testImplementation(platform("org.mockito:mockito-bom:${mockitoVersion}"))
+    testImplementation("org.mockito:mockito-junit-jupiter")
+    testImplementation("org.mockito:mockito-core")
+    // (1) Add mockito-core to mockitoAgent configuration
+    mockitoAgent("org.mockito:mockito-core:${mockitoVersion}") { isTransitive = false }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -32,13 +45,19 @@ checkstyle {
     toolVersion = "10.12.4"
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
 pmd {
     toolVersion = "6.55.0"
 }
 
+tasks.test {
     useJUnitPlatform()
+    doFirst {
+        jvmArgs(
+            "-javaagent:${mockitoAgent.singleFile.absolutePath}"
+        )
+    }
+}
+
 tasks.named<Test>("test")
 
 tasks.withType<Checkstyle> {
