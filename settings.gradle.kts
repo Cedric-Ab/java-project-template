@@ -4,6 +4,7 @@ plugins {
 }
 
 rootProject.name = "projectName"
+
 fun resolveCheckstylePluginConfig() {
     val inputFile = file(".idea/checkstyle-idea-unresolved.xml")
     val outputFile = file(".idea/checkstyle-idea.xml")
