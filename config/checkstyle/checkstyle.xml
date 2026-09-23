@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+
+  <!-- Charset -->
+  <property name="charset" value="UTF-8"/>
+
+  <!-- Files to check -->
+  <property name="fileExtensions" value="java"/>
+
+  <module name="SuppressionFilter">
+    <property name="file" value="${checkstyle.suppressions.file}"/>
+  </module>
+  <module name="SuppressWarningsFilter"/>
+
+  <!-- === GENEREAL FORMATTING RULES === -->
+
+  <!-- Prevent long unbroken lines (set your desired max) -->
+  <module name="LineLength">
+    <property name="max" value="120"/>
+  </module>
+
+  <!-- Ensure file ends with exactly one newline -->
+  <module name="NewlineAtEndOfFile"/>
+
+
+  <!-- Checks which need knowledge of java syntax -->
+  <module name="TreeWalker">
+    <module name="SuppressionCommentFilter">
+      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w]+)"/>
+      <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w]+)"/>
+      <property name="checkFormat" value="$1"/>
+    </module>
+    <module name="SuppressWarningsHolder"/>
+    <module name="SuppressWithNearbyCommentFilter"/>
+
+    <!-- === NAMING === -->
+    <module name="TypeName">
+      <property name="format" value="^[A-Z]{1,3}(?:[a-z0-9][A-Z]{0,3})*$"/>
+    </module>
+    <module name="MethodName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="ConstantName">
+      <property name="format" value="^log(ger)?$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+    </module>
+
+    <!-- === FORMATTING RULES === -->
+
+    <!-- Enforce consistent indentation -->
+    <module name="Indentation">
+      <property name="basicOffset" value="4"/>
+      <property name="braceAdjustment" value="0"/>
+      <property name="caseIndent" value="4"/>
+      <property name="lineWrappingIndentation" value="8"/>
+    </module>
+
+    <module name="WhitespaceAround"/>
+    <module name="WhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="GenericWhitespace"/>
+
+    <module name="OperatorWrap">
+      <property name="option" value="eol"/>
+    </module>
+
+    <module name="ParenPad"/>
+    <module name="MethodParamPad"/>
+    <module name="EmptyForInitializerPad"/>
+    <module name="ArrayTypeStyle"/>
+
+
+    <!-- IntelliJ-style import order -->
+    <module name="ImportOrder">
+      <property name="option" value="bottom"/> <!-- static imports after normal imports -->
+      <property name="groups" value="*, ch.zhaw, org.jetbrains, javax, java"/>
+      <property name="ordered" value="true"/>  <!-- alphabetical inside groups -->
+      <property name="separated" value="true"/> <!-- blank line between groups -->
+      <property name="sortStaticImportsAlphabetically" value="true"/>
+    </module>
+
+    <module name="UnusedImports"/>
+    <module name="RedundantImport"/>
+    <!--as specified in the clean code handbook-->
+    <module name="AvoidStarImport"/>
+    <!--outdated packages (according to clean code handbook)-->
+    <module name="IllegalImport">
+      <property name="illegalPkgs" value="java.util.Date,  java.util.Calendar,  java.net.HttpURLConnectio"/>
+      <property name="illegalClasses" value="java.util.Date,  java.util.Calendar,  java.net.HttpURLConnectio"/>
+    </module>
+
+    <module name="IllegalType">
+      <property name="illegalClassNames" value="java.util.Date, java.util.Calendar"/>
+    </module>
+
+    <!-- === ANNOTATION CHECKS === -->
+    <module name="AnnotationLocation"/>
+    <module name="MissingDeprecated"/>
+    <module name="MissingOverride"/>
+
+
+    <!-- === BLOCK CHECKS === -->
+    <module name="EmptyBlock"/>
+    <module name="EmptyCatchBlock"/>
+    <module name="LeftCurly">
+      <property name="option" value="eol"/>
+    </module>
+    <module name="RightCurly">
+      <property name="option" value="same"/>
+    </module>
+
+    <!-- === CLASS LAYOUT CHECKS === -->
+    <module name="OneTopLevelClass"/>
+    <module name="DeclarationOrder"/>
+    <module name="VisibilityModifier"/>
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+    <module name="IllegalInstantiation"/>
+
+    <module name="EmptyLineSeparator">
+      <property name="allowMultipleEmptyLines" value="true"/>
+      <property name="allowNoEmptyLineBetweenFields" value="true"/>
+    </module>
+
+
+    <!-- === CODE QUALITY CHECKS === -->
+
+    <module name="ArrayTrailingComma"/>
+    <module name="AvoidNestedBlocks"/>
+    <module name="CovariantEquals"/>
+    <module name="DefaultComesLast"/>
+    <module name="EmptyStatement"/>
+    <module name="EqualsAvoidNull"/>
+    <module name="EqualsHashCode"/>
+
+    <module name="HiddenField">
+      <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreSetter" value="true"/>
+    </module>
+
+    <module name="MagicNumber">
+      <property name="ignoreNumbers" value="-1,0,1,2,3,4,5,10"/>
+      <property name="ignoreHashCodeMethod" value="true"/>
+      <property name="ignoreFieldDeclaration" value="true"/>
+      <property name="ignoreAnnotation" value="true"/>
+    </module>
+
+    <module name="MissingSwitchDefault"/>
+    <module name="ModifiedControlVariable"/>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="NestedIfDepth">
+      <property name="max" value="1"/>
+    </module>
+    <module name="NestedForDepth">
+      <property name="max" value="2"/>
+    </module>
+    <module name="NestedTryDepth">
+      <property name="max" value="1"/>
+    </module>
+    <module name="NoClone"/>
+    <module name="NoFinalizer"/>
+    <module name="OneStatementPerLine"/>
+    <module name="OverloadMethodsDeclarationOrder"/>
+    <module name="PackageDeclaration"/>
+    <module name="ReturnCount">
+      <property name="max" value="5"/>
+      <property name="maxForVoid" value="2"/>
+    </module>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="StringLiteralEquality"/>
+
+    <module name="BooleanExpressionComplexity">
+      <property name="max" value="3"/>
+    </module>
+
+    <module name="ClassDataAbstractionCoupling">
+      <property name="max" value="7"/>
+    </module>
+
+    <module name="CyclomaticComplexity">
+      <property name="max" value="8"/>
+    </module>
+
+    <module name="NPathComplexity">
+      <property name="max" value="150"/>
+    </module>
+
+    <!--as specified in the clean code handbook-->
+    <module name="MethodLength">
+      <property name="max" value="40"/>
+    </module>
+
+    <!--as specified in the clean code handbook-->
+    <module name="ParameterNumber">
+      <property name="max" value="4"/>
+    </module>
+
+
+    <!-- === JAVADOC CHECKS === -->
+    <module name="JavadocType"/>
+    <module name="JavadocMethod">
+      <property name="validateThrows" value="true"/>
+    </module>
+    <module name="InvalidJavadocPosition"/>
+
+    <module name="JavadocStyle"/>
+    <module name="SummaryJavadoc"/>
+    <module name="JavadocContentLocation"/>
+    <module name="JavadocBlockTagLocation"/>
+    <module name="AtclauseOrder"/>
+    <module name="NonEmptyAtclauseDescription"/>
+
+    <module name="JavadocMissingLeadingAsterisk"/>
+
+  </module>
+</module>
