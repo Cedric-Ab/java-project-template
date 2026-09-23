@@ -2,6 +2,7 @@ plugins {
     application
     checkstyle
     pmd
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 repositories {
@@ -39,6 +40,11 @@ java {
 application {
     // Define the main class for the application.
     mainClass = "ch.zhaw.it.pm.teamname.projectname.App"
+}
+
+javafx {
+    version = "21.0.10"
+    modules("javafx.controls", "javafx.fxml")
 }
 
 checkstyle {
