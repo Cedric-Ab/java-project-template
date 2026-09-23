@@ -66,6 +66,10 @@ tasks.test {
 
 tasks.named<Test>("test")
 
+tasks.named<Javadoc>("javadoc") {
+    isFailOnError = true
+}
+
 tasks.withType<Checkstyle> {
     reports {
         xml.required = true
