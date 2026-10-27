@@ -38,6 +38,7 @@ java {
 }
 
 application {
+    // TODO: set the main class
     // Define the main class for the application.
     mainClass = "ch.zhaw.it.pm.teamname.projectname.App"
 }
