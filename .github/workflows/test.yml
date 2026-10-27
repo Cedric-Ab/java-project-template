@@ -25,7 +25,7 @@ jobs:
 
       - name: Check if test report exists
         run: |
-          if [ ! -d "app/build/reports/tests/test" ]; then
+          if [ ! -d "build/reports/tests/test" ]; then
             echo "::warning file=gradlew::Test report folder not found!"
           fi
 
@@ -42,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: app/build/reports/tests/test/
+          path: build/reports/tests/test/
           if-no-files-found: ignore

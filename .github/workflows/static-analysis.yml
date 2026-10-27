@@ -25,7 +25,7 @@ jobs:
 
       - name: Check if static analysis reports exist
         run: |
-          if [ ! -d "app/build/reports/checkstyle" ] && [ ! -d "app/build/reports/pmd" ]; then
+          if [ ! -d "build/reports/checkstyle" ] && [ ! -d "build/reports/pmd" ]; then
             echo "::warning file=gradlew::Static analysis reports not found!"
           fi
 
@@ -47,6 +47,6 @@ jobs:
         with:
           name: static-analysis-reports
           path: |
-            app/build/reports/checkstyle/
-            app/build/reports/pmd/
+            build/reports/checkstyle/
+            build/reports/pmd/
           if-no-files-found: ignore
