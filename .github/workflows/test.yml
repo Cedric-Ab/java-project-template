@@ -30,7 +30,7 @@ jobs:
           fi
 
       - name: Publish Test Results
-        if: always()
+        if: always() && steps.test_reports.outputs.found == 'true'
         uses: dorny/test-reporter@v1
         with:
           name: Gradle Tests
