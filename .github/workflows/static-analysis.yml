@@ -29,6 +29,18 @@ jobs:
             echo "::warning file=gradlew::Static analysis reports not found!"
           fi
 
+      - name: Annotate Checkstyle Results
+        if: always()
+        uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: '**/build/reports/checkstyle/*.xml'
+
+      - name: Publish PMD annotations
+        if: always()
+        uses: jwgmeligmeyling/pmd-github-action@master
+        with:
+          path: '**/build/reports/pmd/*.xml'
+
       - name: Upload static analysis reports
         if: always()
         uses: actions/upload-artifact@v7
