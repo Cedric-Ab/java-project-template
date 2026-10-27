@@ -29,6 +29,14 @@ jobs:
             echo "::warning file=gradlew::Test report folder not found!"
           fi
 
+      - name: Publish Test Results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Gradle Tests
+          path: '**/build/test-results/test/*.xml'
+          reporter: java-junit
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
