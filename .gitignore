@@ -37,7 +37,6 @@ build
 
 # Keep shared project settings
 !.idea/externalDependencies.xml
-!.idea/checkstyle-idea-unresolved.xml
 
 # Ignore save-files
 saves/*

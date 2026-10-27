@@ -4,6 +4,11 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   analysis:
     runs-on: ubuntu-latest
@@ -35,7 +40,7 @@ jobs:
         with:
           path: '**/build/reports/checkstyle/*.xml'
 
-      - name: Publish PMD annotations
+      - name: Annotate PMD Results
         if: always()
         uses: jwgmeligmeyling/pmd-github-action@master
         with:
