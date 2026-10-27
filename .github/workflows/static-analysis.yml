@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: "21"
@@ -25,16 +25,28 @@ jobs:
 
       - name: Check if static analysis reports exist
         run: |
-          if [ ! -d "app/build/reports/checkstyle" ] && [ ! -d "app/build/reports/pmd" ]; then
+          if [ ! -d "build/reports/checkstyle" ] && [ ! -d "build/reports/pmd" ]; then
             echo "::warning file=gradlew::Static analysis reports not found!"
           fi
 
+      - name: Annotate Checkstyle Results
+        if: always()
+        uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: '**/build/reports/checkstyle/*.xml'
+
+      - name: Publish PMD annotations
+        if: always()
+        uses: jwgmeligmeyling/pmd-github-action@master
+        with:
+          path: '**/build/reports/pmd/*.xml'
+
       - name: Upload static analysis reports
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v5
         with:
           name: static-analysis-reports
           path: |
-            app/build/reports/checkstyle/
-            app/build/reports/pmd/
+            build/reports/checkstyle/
+            build/reports/pmd/
           if-no-files-found: ignore

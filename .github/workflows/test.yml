@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: "21"
@@ -25,14 +25,22 @@ jobs:
 
       - name: Check if test report exists
         run: |
-          if [ ! -d "app/build/reports/tests/test" ]; then
+          if [ ! -d "build/reports/tests/test" ]; then
             echo "::warning file=gradlew::Test report folder not found!"
           fi
 
+      - name: Publish Test Results
+        if: always() && steps.test_reports.outputs.found == 'true'
+        uses: dorny/test-reporter@v1
+        with:
+          name: Gradle Tests
+          path: '**/build/test-results/test/*.xml'
+          reporter: java-junit
+
       - name: Upload test report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-report
-          path: app/build/reports/tests/test/
+          path: build/reports/tests/test/
           if-no-files-found: ignore
