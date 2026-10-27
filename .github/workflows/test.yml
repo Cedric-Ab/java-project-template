@@ -30,12 +30,14 @@ jobs:
           fi
 
       - name: Publish Test Results
-        if: always() && steps.test_reports.outputs.found == 'true'
+        if: always()
         uses: dorny/test-reporter@v1
         with:
           name: Gradle Tests
           path: '**/build/test-results/test/*.xml'
           reporter: java-junit
+          fail-on-error: 'false'
+          fail-on-empty: 'false'
 
       - name: Upload test report
         if: always()
